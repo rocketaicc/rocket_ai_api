@@ -6,7 +6,7 @@
 
 | 环境     | URL                                  |
 | -------- | ------------------------------------ |
-| 生产环境 | https://openai.api.ai-whistle.com/v1 |
+| 生产环境 | https://openai.api.ai-rocket.cc/v1 |
 
 
 
@@ -18,7 +18,7 @@
 Authorization: Bearer WHISTLE_API_KEY
 ```
 
-`WHISTLE_API_KEY`从[控制台](https://account.ai-whistle.com/)获取。
+`WHISTLE_API_KEY`从[控制台](https://account.ai-rocket.cc/)获取。
 
 
 
@@ -27,7 +27,7 @@ Authorization: Bearer WHISTLE_API_KEY
 您可以将下面的命令粘贴到您的终端中以运行您的第一个 API 请求。确保将 `$WHISTLE_API_KEY` 替换为您的 API 密钥。
 
 ```shell
-curl https://openai.api.ai-whistle.com/v1/chat/completions \
+curl https://openai.api.ai-rocket.cc/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $WHISTLE_API_KEY" \
   -d '{
