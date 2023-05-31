@@ -2,11 +2,11 @@
 
 
 
-# 基础路径
+# API地址
 
 | 环境     | URL                                  |
 | -------- | ------------------------------------ |
-| 生产环境 | https://openai.api.ai-rocket.cc/v1 |
+| 生产环境 | https://openai.api.ai-whistle.com |
 
 
 
@@ -15,21 +15,21 @@
 所有 API 请求都应在 `Authorization` HTTP 标头中包含您的 API 密钥，如下所示：
 
 ```http
-Authorization: Bearer WHISTLE_API_KEY
+Authorization: Bearer AIR_KEY
 ```
 
-`WHISTLE_API_KEY`从[控制台](https://account.ai-rocket.cc/)获取。
+`AIR_KEY`从[控制台](https://account.ai-rocket.cc/)获取。
 
 
 
 # 第一个请求
 
-您可以将下面的命令粘贴到您的终端中以运行您的第一个 API 请求。确保将 `$WHISTLE_API_KEY` 替换为您的 API 密钥。
+您可以将下面的命令粘贴到您的终端中以运行您的第一个 API 请求。确保将 `$AIR_KEY` 替换为您的 API 密钥。
 
 ```shell
-curl https://openai.api.ai-rocket.cc/v1/chat/completions \
+curl https://openai.api.ai-whistle.com/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $WHISTLE_API_KEY" \
+  -H "Authorization: Bearer $AIR_KEY" \
   -d '{
      "model": "gpt-3.5-turbo",
      "messages": [{"role": "user", "content": "Say this is a test!"}],
@@ -67,7 +67,47 @@ curl https://openai.api.ai-rocket.cc/v1/chat/completions \
 
 
 
-# **API列表**
+# 支持的API和模型
+
+## 稳定版本
+
+| URL                  | 支持的模型                | 备注               |
+| -------------------- | ------------------------- | ------------------ |
+| /v1/chat/completions | gpt-3.5-turbo             | ChatGPT            |
+|                      | gpt-3.5-turbo-0301        |                    |
+|                      | gpt-4                     | 暂不支持，即将支持 |
+|                      | gpt-4-0314                | 暂不支持，即将支持 |
+| /v1/completions      | text-ada-001              | 内容补全           |
+|                      | text-babbage-001          |                    |
+|                      | text-curie-001            |                    |
+|                      | text-davinci-002          |                    |
+|                      | text-davinci-003          |                    |
+| /v1/embeddings       | text-embedding-ada-002    | 向量生成           |
+|                      | text-similarity-ada-001   |                    |
+|                      | text-similarity-curie-001 |                    |
+| /v1/edits/v1/edits   | code-davinci-edit-001     | 文本编辑           |
+|                      | text-davinci-edit-001     |                    |
+
+
+
+## Beta版本
+
+以下的接口和模型：访问可能不稳定。
+
+| URL                | 支持的模型                                                   | 备注     |
+| ------------------ | ------------------------------------------------------------ | -------- |
+| /v1/embeddings     | text-search-ada-doc-001<br/> text-search-ada-query-001<br/> text-search-babbage-doc-001<br/> text-search-babbage-query-001<br/> text-search-curie-doc-001<br/> text-search-curie-query-001<br/> text-search-davinci-doc-001<br/> text-search-davinci-query-001 | 向量生成 |
+|                    | text-similarity-ada-001                                      | 向量生成 |
+|                    | text-similarity-curie-001                                    | 向量生成 |
+| /v1/edits/v1/edits | code-davinci-edit-001                                        | 文本编辑 |
+|                    | text-davinci-edit-001                                        | 文本编辑 |
+
+
+
+
+
+# **接口详情**
+
 
 
 
@@ -94,7 +134,7 @@ Reduce-Stream
 > URL
 
 ```bash
-{{BASE_URL}}/completions
+{{BASE_URL}}/v1/completions
 ```
 
 
@@ -109,7 +149,7 @@ Reduce-Stream
 | max_tokens        | integer         | 完成时生成的最大tokens数量  您的提示加上 max_tokens 的标记计数不能超过模型的上下文长度。大多数模型的上下文长度为 2048 个标记（最新模型除外，它支持 4096）。 |
 | temperature       | number          |                                                              |
 | top_p             | number          |                                                              |
-| n                 | integer         | 为每个提示生成多少批结果。  AI-Whistle会限制数量不超过1。    |
+| n                 | integer         | 为每个提示生成多少批结果。  本系统会限制数量不超过1。    |
 | stream            | boolean         | 是否启用Event  Stream                                        |
 | logprobs          | integer         |                                                              |
 | echo              | boolean         | 是否返回prompt                                               |
@@ -191,7 +231,7 @@ POST
 URL
 
 ```bash
-{{BASE_URL}}/chat/completions
+{{BASE_URL}}/v1/chat/completions
 ```
 
 
@@ -220,7 +260,7 @@ Reduce-Stream
 | user              |         | string          | 代表您的最终用户的唯一标识符                                 |
 | temperature       |         | number          |                                                              |
 | top_p             |         | number          |                                                              |
-| n                 |         | integer         | 为每个提示生成多少批结果。 AI-Whistle会限制数量不超过1。     |
+| n                 |         | integer         | 为每个提示生成多少批结果。 本系统会限制数量不超过1。     |
 | stop              |         | string or array |                                                              |
 | presence_penalty  |         | number          |                                                              |
 | frequency_penalty |         | number          |                                                              |
@@ -297,4 +337,16 @@ data: [{}]
 data: [DONE]
 
 ```
+
+
+
+## Edits
+
+见[官网](https://platform.openai.com/docs/api-reference/edits)
+
+
+
+## Embeddings
+
+见[官网](https://platform.openai.com/docs/api-reference/embeddings/create)
 
